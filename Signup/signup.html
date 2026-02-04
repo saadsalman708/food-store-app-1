@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <main>
+            <div>
+                <h1>Sign Up</h1>
+                <input id="fullName" type="text" placeholder="Full Name">
+                <input id="email" type="email" placeholder="Email">
+                <input id="password" type="password" placeholder="Password">
+                <div>
+                    <div>
+                        <input type="radio" name="role" id="user" class="role" value="user">
+                        <label for="user">Sign up as a User</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="role" id="vendor" class="role" value="vendor">
+                        <label for="vendor">Sign up as a Vendor</label>
+                    </div>
+                </div>
+                <div>
+                    <button id="btn">Sign Up</button>
+                    <button id="googleBtn">Sign Up with Google</button>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="./signup.js"></script>
+</html>
