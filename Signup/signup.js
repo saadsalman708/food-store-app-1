@@ -83,24 +83,44 @@ btn.addEventListener("click", async () => {
 
 googleBtn.addEventListener("click", async () => {
 
-    const role = document.querySelector('input[name="role"]:checked');
-
-    if (!role) {
-        Swal.fire({
-            title: "Please select your role first",
-            text: "then you can signup with google",
-            icon: "warning",
-        });
-        return;
-    }
-
-    const roleVal = role.value;
-    let successMsg = "Please Login";
-
+    let successMsg = "";
+    let pageRedirect = "../User/user.html";
 
     try {
-        
+
         const res = await signInWithPopup(auth, googleProvider);
+        const uid = res.user.uid;
+        const snap = await getDoc(doc(db, "users", uid));
+
+        if (snap.exists()) {
+            const profile = snap.data();
+
+            if (profile.role === "admin") {
+                pageRedirect = "../admin/admin.html";
+            }
+
+            if (profile.role === "vendor") {
+                pageRedirect = profile.isVerified
+                    ? "../Vendor/vendor.html"
+                    : "../Vendor/waiting.html";
+            }
+
+            window.location.href = pageRedirect;
+            return;
+        }
+
+        const role = document.querySelector('input[name="role"]:checked');
+
+        if (!role) {
+            Swal.fire({
+                title: "Please select your role first",
+                text: "then you can signup with google",
+                icon: "warning",
+            });
+            return;
+        }
+
+        const roleVal = role.value;
 
         const data = {
             fullName: res.user.displayName || "",
@@ -111,18 +131,18 @@ googleBtn.addEventListener("click", async () => {
 
         if (roleVal === "vendor") {
             successMsg = "Login and Wait for admin aproval";
+            pageRedirect = "../Vendor/waiting.html";
             data.isVerified = false;
         }
 
-        await setDoc(doc(db, "users", res.user.uid), data);
-
+        await setDoc(doc(db, "users", uid), data);
 
         Swal.fire({
             title: "Account Created!",
             text: successMsg,
             icon: "success",
         }).then(() => {
-            window.location.href = "../Login/login.html";
+            window.location.href = pageRedirect;
         });
 
     } catch (error) {
