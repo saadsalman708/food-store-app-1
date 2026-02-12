@@ -2,8 +2,9 @@ import {
     auth, db, googleProvider,
     createUserWithEmailAndPassword, signInWithPopup,
     doc, setDoc, getDoc, serverTimestamp,
+    onAuthStateChanged,
 } from "../../firebase/config.js";
-import { kick } from "../../func/kick.js";
+// import { kick } from "../../func/kick.js";
 
 const fullName = document.querySelector("#fullName");
 const email = document.querySelector("#email");
@@ -11,16 +12,29 @@ const password = document.querySelector("#password");
 const btn = document.querySelector("#btn");
 const googleBtn = document.querySelector("#googleBtn");
 
+
+
 let loadOnce = false;
 
 
 
 
 
-if (!loadOnce) {
-    loadOnce = true;
-    await kick({ requireAuth: false , });
-}
+// await kick({ requireAuth: false, });
+
+
+
+
+
+onAuthStateChanged( auth , user => {
+
+    if (!loadOnce) {
+        loadOnce = true;
+        if (user) {
+            window.location.replace("../../index.html");
+        }
+    }
+})
 
 
 
@@ -36,7 +50,7 @@ btn.addEventListener("click", async () => {
         Swal.fire({
             title: "Please fill your details",
             icon: "warning",
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
@@ -51,7 +65,7 @@ btn.addEventListener("click", async () => {
         Swal.fire({
             title: "Please select your role",
             icon: "warning",
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
@@ -86,13 +100,13 @@ btn.addEventListener("click", async () => {
             title: "Account Created!",
             text: successMsg,
             icon: "success",
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
             no-repeat`,
         }).then(() => {
-            window.location.replace("../index.html");
+            window.location.replace("../../index.html");
         });
 
     } catch (error) {
@@ -100,7 +114,7 @@ btn.addEventListener("click", async () => {
             title: "Signup Failed",
             text: error.message,
             icon: "error",
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
@@ -152,14 +166,14 @@ googleBtn.addEventListener("click", async () => {
                 title: "Login Successful",
                 text: successMsg,
                 icon: iconMsg,
-                            backdrop: `
+                backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
             no-repeat`,
-            }).then(()=>{
+            }).then(() => {
                 // window.location.replace(pageRedirect);
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
             });
 
             return;
@@ -172,7 +186,7 @@ googleBtn.addEventListener("click", async () => {
                 title: "Please select your role first",
                 text: "then you can signup with google",
                 icon: "warning",
-                            backdrop: `
+                backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
@@ -202,14 +216,14 @@ googleBtn.addEventListener("click", async () => {
             title: "Account Created!",
             text: successMsg,
             icon: iconMsg,
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%
             no-repeat`,
         }).then(() => {
             // window.location.replace(pageRedirect);
-            window.location.replace("../index.html");
+            window.location.replace("../../index.html");
         });
 
     } catch (error) {
@@ -217,7 +231,7 @@ googleBtn.addEventListener("click", async () => {
             title: "Signup Failed",
             text: error.message,
             icon: "error",
-                        backdrop: `
+            backdrop: `
             rgba(0,0,123,0.4)
             url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
             left top / 30%

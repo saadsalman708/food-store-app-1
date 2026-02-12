@@ -5,7 +5,9 @@ async function kick({ requireAuth = true, role, verify = null, }) {
 
     return new Promise((resolve) => {
 
-        onAuthStateChanged(auth, async (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+                
+            unsubscribe();
 
             if (!requireAuth && !user) {
                 return resolve(user);
@@ -13,13 +15,13 @@ async function kick({ requireAuth = true, role, verify = null, }) {
             }
 
             if (!requireAuth && user) {
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
                 return resolve(user);
                 // return;
             }
 
             if (!user) {
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
                 return resolve(user);
                 // return;
             }
@@ -27,7 +29,7 @@ async function kick({ requireAuth = true, role, verify = null, }) {
             const snap = await getDoc(doc(db, "users", user.uid));
 
             if (!snap.exists()) {
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
                 return resolve(user);
                 // return;
             }
@@ -35,13 +37,13 @@ async function kick({ requireAuth = true, role, verify = null, }) {
             const profile = snap.data();
 
             if (role && role !== profile.role) {
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
                 return resolve(user);
                 // return;
             }
 
             if (verify !== null && verify !== profile.isVerified) {
-                window.location.replace("../index.html");
+                window.location.replace("../../index.html");
                 return resolve(user);
                 // return;
             }
