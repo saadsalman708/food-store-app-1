@@ -1,5 +1,5 @@
-import { auth, signOut } from "../firebase/config.js";
-import { kick } from "../func/kick.js";
+import { auth, signOut } from "../../firebase/config.js";
+import { kick } from "../../func/kick.js";
 
 
 const logoutBtn = document.querySelector("#logoutBtn");

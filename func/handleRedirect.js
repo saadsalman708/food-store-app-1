@@ -16,25 +16,26 @@ onAuthStateChanged(auth, async (user) => {
     const profile = snap.data();
 
     if (profile.role === "admin") {
-        window.location.href = "./admin/admin.html";
+        window.location.href = "./pages/admin/admin.html";
         return;
     }
 
     if (profile.role === "user") {
-        window.location.href = "./user/user.html";
+        window.location.href = "./pages/user/user.html";
         return;
     }
 
     if (profile.role === "vendor") {
         window.location.href = profile.isVerified
-                               ? "./vendor/vendor.html"
-                               : "./vendor/waiting.html";
+                               ? "./pages/vendor/vendor.html"
+                               : "./pages/vendor/waiting.html";
         return;
     }
 
 });
 
 }
+
 
 
 

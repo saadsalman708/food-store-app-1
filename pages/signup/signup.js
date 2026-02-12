@@ -2,8 +2,8 @@ import {
     auth, db, googleProvider,
     createUserWithEmailAndPassword, signInWithPopup,
     doc, setDoc, getDoc, serverTimestamp,
-} from "../firebase/config.js";
-import { kick } from "../func/kick.js";
+} from "../../firebase/config.js";
+import { kick } from "../../func/kick.js";
 
 const fullName = document.querySelector("#fullName");
 const email = document.querySelector("#email");
@@ -92,7 +92,7 @@ btn.addEventListener("click", async () => {
             left top / 30%
             no-repeat`,
         }).then(() => {
-            window.location.href = "../index.html";
+            window.location.replace("../index.html");
         });
 
     } catch (error) {
@@ -118,7 +118,7 @@ googleBtn.addEventListener("click", async () => {
 
     let successMsg = "";
     let iconMsg = "success";
-    let pageRedirect = "../User/user.html";
+    let pageRedirect = "../pages/user/user.html";
 
     try {
 
@@ -128,15 +128,16 @@ googleBtn.addEventListener("click", async () => {
 
         if (snap.exists()) {
             const profile = snap.data();
+            successMsg = "Account already exists!";
 
-            if (profile.role === "admin") {
-                pageRedirect = "../admin/admin.html";
-            }
+            // if (profile.role === "admin") {
+            //     pageRedirect = "../pages/admin/admin.html";
+            // }
 
             if (profile.role === "vendor") {
-                pageRedirect = profile.isVerified
-                    ? "../Vendor/vendor.html"
-                    : "../Vendor/waiting.html";
+                // pageRedirect = profile.isVerified
+                //     ? "../pages/vendor/vendor.html"
+                //     : "../pages/vendor/waiting.html";
 
                 successMsg = !profile.isVerified
                     ? "Admin haven't aproved yet!"
@@ -157,7 +158,8 @@ googleBtn.addEventListener("click", async () => {
             left top / 30%
             no-repeat`,
             }).then(()=>{
-                window.location.href = pageRedirect;
+                // window.location.replace(pageRedirect);
+                window.location.replace("../index.html");
             });
 
             return;
@@ -190,7 +192,7 @@ googleBtn.addEventListener("click", async () => {
 
         if (roleVal === "vendor") {
             successMsg = "Login and Wait for admin aproval";
-            pageRedirect = "../Vendor/waiting.html";
+            // pageRedirect = "../pages/vendor/waiting.html";
             data.isVerified = false;
         }
 
@@ -206,7 +208,8 @@ googleBtn.addEventListener("click", async () => {
             left top / 30%
             no-repeat`,
         }).then(() => {
-            window.location.href = pageRedirect;
+            // window.location.replace(pageRedirect);
+            window.location.replace("../index.html");
         });
 
     } catch (error) {

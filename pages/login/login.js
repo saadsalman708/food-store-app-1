@@ -1,8 +1,8 @@
 import { auth, db, googleProvider, signInWithEmailAndPassword, signInWithPopup, 
     getDoc, doc, setDoc, serverTimestamp, 
-} from "../firebase/config.js";
+} from "../../firebase/config.js";
 
-import { kick } from "../func/kick.js";
+import { kick } from "../../func/kick.js";
 
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
