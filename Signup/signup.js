@@ -1,7 +1,7 @@
 import {
     auth, db, googleProvider,
     createUserWithEmailAndPassword, signInWithPopup,
-    doc, setDoc, getDoc, addDoc, collection,
+    doc, setDoc, getDoc, serverTimestamp,
 } from "../firebase/config.js";
 import { kick } from "../func/kick.js";
 
@@ -28,14 +28,19 @@ if (!loadOnce) {
 
 btn.addEventListener("click", async () => {
 
-    const fullNameVal = fullName.value;
-    const emailVal = email.value;
-    const passwordVal = password.value;
+    const fullNameVal = fullName.value.trim();
+    const emailVal = email.value.trim();
+    const passwordVal = password.value.trim();
 
     if (!fullNameVal || !emailVal || !passwordVal) {
         Swal.fire({
             title: "Please fill your details",
             icon: "warning",
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         });
         return;
     }
@@ -46,6 +51,11 @@ btn.addEventListener("click", async () => {
         Swal.fire({
             title: "Please select your role",
             icon: "warning",
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         });
         return;
     };
@@ -58,7 +68,7 @@ btn.addEventListener("click", async () => {
         email: emailVal,
         password: passwordVal,
         role: roleVal,
-        createdAt: Date.now(),
+        createdAt: serverTimestamp(),
     };
 
     if (roleVal === "vendor") {
@@ -76,15 +86,25 @@ btn.addEventListener("click", async () => {
             title: "Account Created!",
             text: successMsg,
             icon: "success",
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         }).then(() => {
             window.location.href = "../index.html";
         });
 
     } catch (error) {
         Swal.fire({
-            title: "Error",
+            title: "Signup Failed",
             text: error.message,
             icon: "error",
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         });
     }
 
@@ -131,6 +151,11 @@ googleBtn.addEventListener("click", async () => {
                 title: "Login Successful",
                 text: successMsg,
                 icon: iconMsg,
+                            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
             }).then(()=>{
                 window.location.href = pageRedirect;
             });
@@ -145,6 +170,11 @@ googleBtn.addEventListener("click", async () => {
                 title: "Please select your role first",
                 text: "then you can signup with google",
                 icon: "warning",
+                            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
             });
             return;
         }
@@ -155,7 +185,7 @@ googleBtn.addEventListener("click", async () => {
             fullName: res.user.displayName || "",
             email: res.user.email,
             role: roleVal,
-            createdAt: Date.now(),
+            createdAt: serverTimestamp(),
         };
 
         if (roleVal === "vendor") {
@@ -170,15 +200,25 @@ googleBtn.addEventListener("click", async () => {
             title: "Account Created!",
             text: successMsg,
             icon: iconMsg,
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         }).then(() => {
             window.location.href = pageRedirect;
         });
 
     } catch (error) {
         Swal.fire({
-            title: "Error",
+            title: "Signup Failed",
             text: error.message,
             icon: "error",
+                        backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
         });
     }
 });

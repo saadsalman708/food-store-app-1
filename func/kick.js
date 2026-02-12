@@ -3,54 +3,54 @@ import { auth, db, doc, getDoc, onAuthStateChanged, } from "../firebase/config.j
 
 async function kick({ requireAuth = true, role, verify = null, }) {
 
-    // return new Promise((resolve) => {
+    return new Promise((resolve) => {
 
-    onAuthStateChanged(auth, async (user) => {
+        onAuthStateChanged(auth, async (user) => {
 
-        if (!requireAuth && !user) {
-            // return resolve(user);
-            return;
-        }
+            if (!requireAuth && !user) {
+                return resolve(user);
+                // return;
+            }
 
-        if (!requireAuth && user) {
-            window.location.replace("../index.html");
-            // return resolve(user);
-            return;
-        }
+            if (!requireAuth && user) {
+                window.location.replace("../index.html");
+                return resolve(user);
+                // return;
+            }
 
-        if (!user) {
-            window.location.replace("../index.html");
-            // return resolve(user);
-            return;
-        }
+            if (!user) {
+                window.location.replace("../index.html");
+                return resolve(user);
+                // return;
+            }
 
-        const snap = await getDoc(doc(db, "users", user.uid));
+            const snap = await getDoc(doc(db, "users", user.uid));
 
-        if (!snap.exists()) {
-            window.location.replace("../index.html");
-            // return resolve(user);
-            return;
-        }
+            if (!snap.exists()) {
+                window.location.replace("../index.html");
+                return resolve(user);
+                // return;
+            }
 
-        const profile = snap.data();
+            const profile = snap.data();
 
-        if (role && role !== profile.role) {
-            window.location.replace("../index.html");
-            // return resolve(user);
-            return;
-        }
+            if (role && role !== profile.role) {
+                window.location.replace("../index.html");
+                return resolve(user);
+                // return;
+            }
 
-        if (verify !== null && verify !== profile.isVerified) {
-            window.location.replace("../index.html");
-            // return resolve(user);
-            return;
-        }
+            if (verify !== null && verify !== profile.isVerified) {
+                window.location.replace("../index.html");
+                return resolve(user);
+                // return;
+            }
 
-        return;
-        // return resolve(user);
+            return resolve(user);
+            // return;
+        });
+
     });
-
-    // });
 }
 
 

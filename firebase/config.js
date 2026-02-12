@@ -32,6 +32,6 @@
 
 export { auth , db , googleProvider , 
          onAuthStateChanged , createUserWithEmailAndPassword , signInWithEmailAndPassword , 
-         signInWithPopup , signOut , 
-         doc , setDoc , getDoc , addDoc , collection , 
+         signInWithPopup , signOut ,  
+         doc , setDoc , getDoc , addDoc , collection , serverTimestamp , 
 };

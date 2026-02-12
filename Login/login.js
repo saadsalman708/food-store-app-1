@@ -1,4 +1,6 @@
-import { auth ,  } from "../firebase/config.js";
+import { auth, db, googleProvider, signInWithEmailAndPassword, signInWithPopup, 
+    getDoc, doc, setDoc, serverTimestamp, 
+} from "../firebase/config.js";
 
 import { kick } from "../func/kick.js";
 
@@ -15,5 +17,96 @@ let loadOnce = false;
 
 if (!loadOnce) {
     loadOnce = true;
-    await kick({ requireAuth: false , });
+    await kick({ requireAuth: false, });
 }
+
+
+
+
+
+btn.addEventListener("click", async () => {
+
+    const emailVal = email.value.trim();
+    const passwordVal = password.value.trim();
+
+    if (!emailVal || !passwordVal) {
+        Swal.fire({
+            title: "Please fill your details",
+            icon: "warning",
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
+        });
+        return;
+    }
+
+    try {
+
+        await signInWithEmailAndPassword(auth, emailVal, passwordVal);
+
+    } catch (error) {
+        Swal.fire({
+            title: "Login Failed",
+            text: error.message,
+            icon: "error",
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
+        });
+    }
+});
+
+
+
+
+
+googleBtn.addEventListener("click", async () => {
+    try {
+
+        await signInWithPopup(auth, googleProvider);
+        const snap = await getDoc(doc(db, "users", auth.currentUser.uid));
+        let titleMsg = "Login Successful";
+
+        if (!snap.exists()) {
+            titleMsg = "Account Created!";
+
+            await setDoc(doc(db, "users", auth.currentUser.uid), {
+                fullName: auth.currentUser.displayName || "",
+                email: auth.currentUser.email || "",
+                role: "user",
+                createdAt: serverTimestamp(),
+            });
+        }
+
+        Swal.fire({
+            title: titleMsg,
+            text: "You are logged in successfully!",
+            icon: "success",
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
+        }).then(() => {
+            window.location.replace("../index.html");
+        });
+
+    } catch (error) {
+
+        Swal.fire({
+            title: "Login Failed",
+            text: error.message,
+            icon: "error",
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://images.steamusercontent.com/ugc/974353111661482849/4706D02264975280AEFACD65BF02F585F978B6B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false")
+            left top / 30%
+            no-repeat`,
+        });
+
+    }
+});
