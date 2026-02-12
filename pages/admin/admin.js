@@ -1,7 +1,7 @@
 import { 
     auth, db,
     signOut , 
-    getDoc, collection,
+    getDoc, getDocs , collection, updateDoc, doc ,
  } from "../../firebase/config.js";
 
 import { kick } from "../../func/kick.js";
@@ -19,11 +19,6 @@ const vendorsList = document.querySelector("#vendors-list");
 
 await kick({ role: "admin" });
 
-
-
-
-
-loadVendors();
 
 
 
@@ -58,13 +53,13 @@ logoutBtn.addEventListener("click", () => {
 
 async function getVendors() {
 
-    const snap = await getDoc(collection( db , "users"));
+    const snap = await getDocs(collection( db , "users"));
 
     // if (!snap.exists()) return;
 
     const list = [];
 
-    snap.array.forEach(profileData => {
+    snap.forEach(profileData => {
         const profile = profileData.data();
 
         if ("vendor" === profile.role) {
@@ -89,30 +84,48 @@ async function getVendors() {
 
 
 
-const loadVendors = async()=> {
+// const loadVendors = async()=> {
+async function loadVendors() {
 
     vendorsList.innerHTML = ``;
     const vendorsData = await getVendors();    
     const ul = document.createElement("ul");
 
-    vendorsData.forEach((user)=>{
+    vendorsData.forEach((vendor)=>{
         const li = document.createElement("li");
         const btn = document.createElement("button");
-        btn.textContent = user.isVerified ? "Unverify" : "Verify";
-        // btn.setAttribute('onclick' , "verUser()");
-        btn.onclick = ()=> verUser(user.uid , user.isVerified);
+        btn.textContent = vendor.isVerified ? "Unverify" : "Verify";
+        // btn.setAttribute('onclick' , "verifyVendor()");
+        btn.onclick = ()=> verifyVendor(vendor.uid , vendor.isVerified);
         li.innerHTML = `
-            <div>uid: ${user.uid}</div>
-            <div>Full Name: ${user.fullName}</div>
-            <div>Email: ${user.email}</div>
-            <div>Password: ${user.password}</div>
-            <div>Role: ${user.role}</div>
-            <div>Verify: ${user.isVerified}</div>
-            <div>Joinned at: ${user.createdAt}</div>
+            <div>uid: ${vendor.uid}</div>
+            <div>Full Name: ${vendor.fullName}</div>
+            <div>Email: ${vendor.email}</div>
+            <div>Password: ${vendor.password}</div>
+            <div>Role: ${vendor.role}</div>
+            <div>Verify: ${vendor.isVerified}</div>
+            <div>Joinned at: ${vendor.createdAt}</div>
         `;
 
         li.appendChild(btn);
         ul.appendChild(li);
     });
-    usersDiv.appendChild(ul);
+    vendorsList.appendChild(ul);
 }
+
+
+
+
+
+const verifyVendor = async (uid , verify)=> {
+    await updateDoc(doc( db , "users" , uid) , {
+        isVerified : !verify
+    });
+    loadVendors();
+}
+
+
+
+
+
+loadVendors();

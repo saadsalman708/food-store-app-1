@@ -6,7 +6,7 @@
             GoogleAuthProvider , signInWithPopup , signOut , 
    } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
-  import { getFirestore , doc , setDoc , getDoc , addDoc , collection, 
+  import { getFirestore , doc , setDoc , getDoc , getDocs , addDoc , collection, 
            serverTimestamp , updateDoc , 
   } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
@@ -33,5 +33,5 @@
 export { auth , db , googleProvider , 
          onAuthStateChanged , createUserWithEmailAndPassword , signInWithEmailAndPassword , 
          signInWithPopup , signOut ,  
-         doc , setDoc , getDoc , addDoc , collection , serverTimestamp , updateDoc , 
+         doc , setDoc , getDoc , getDocs , addDoc , collection , serverTimestamp , updateDoc , 
 };
