@@ -75,7 +75,7 @@ btn.addEventListener("click", async () => {
     };
 
     const roleVal = role.value;
-    let successMsg = "Please Login";
+    let successMsg = "";
 
     const data = {
         fullName: fullNameVal,

@@ -79,6 +79,10 @@ footer {
         gap: 1rem;
     }
 
+    main h1 {
+        font-size: 3rem;
+    }
+
     main div div {
         flex-direction: column;
     }
