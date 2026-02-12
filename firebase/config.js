@@ -3,7 +3,7 @@
 
   import { getAuth , onAuthStateChanged , 
             createUserWithEmailAndPassword , signInWithEmailAndPassword , 
-            GoogleAuthProvider , signInWithPopup , 
+            GoogleAuthProvider , signInWithPopup , signOut , 
    } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
   import { getFirestore , doc , setDoc , getDoc , addDoc , collection, 
@@ -32,6 +32,6 @@
 
 export { auth , db , googleProvider , 
          onAuthStateChanged , createUserWithEmailAndPassword , signInWithEmailAndPassword , 
-         signInWithPopup , 
+         signInWithPopup , signOut , 
          doc , setDoc , getDoc , addDoc , collection , 
 };

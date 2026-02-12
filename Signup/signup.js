@@ -3,12 +3,24 @@ import {
     createUserWithEmailAndPassword, signInWithPopup,
     doc, setDoc, getDoc, addDoc, collection,
 } from "../firebase/config.js";
+import { kick } from "../func/kick.js";
 
 const fullName = document.querySelector("#fullName");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const btn = document.querySelector("#btn");
 const googleBtn = document.querySelector("#googleBtn");
+
+let loadOnce = false;
+
+
+
+
+
+if (!loadOnce) {
+    loadOnce = true;
+    await kick({ requireAuth: false , });
+}
 
 
 
@@ -44,6 +56,7 @@ btn.addEventListener("click", async () => {
     const data = {
         fullName: fullNameVal,
         email: emailVal,
+        password: passwordVal,
         role: roleVal,
         createdAt: Date.now(),
     };
@@ -57,14 +70,14 @@ btn.addEventListener("click", async () => {
 
         const res = await createUserWithEmailAndPassword(auth, emailVal, passwordVal);
 
-        await setDoc(doc(db, users, res.user.uid), data);
+        await setDoc(doc(db, "users", res.user.uid), data);
 
         Swal.fire({
             title: "Account Created!",
             text: successMsg,
             icon: "success",
         }).then(() => {
-            window.location.href = "../Login/login.html";
+            window.location.href = "../index.html";
         });
 
     } catch (error) {
@@ -84,6 +97,7 @@ btn.addEventListener("click", async () => {
 googleBtn.addEventListener("click", async () => {
 
     let successMsg = "";
+    let iconMsg = "success";
     let pageRedirect = "../User/user.html";
 
     try {
@@ -103,9 +117,24 @@ googleBtn.addEventListener("click", async () => {
                 pageRedirect = profile.isVerified
                     ? "../Vendor/vendor.html"
                     : "../Vendor/waiting.html";
+
+                successMsg = !profile.isVerified
+                    ? "Admin haven't aproved yet!"
+                    : "";
+
+                iconMsg = !profile.isVerified
+                    ? "warning"
+                    : "success";
             }
 
-            window.location.href = pageRedirect;
+            Swal.fire({
+                title: "Login Successful",
+                text: successMsg,
+                icon: iconMsg,
+            }).then(()=>{
+                window.location.href = pageRedirect;
+            });
+
             return;
         }
 
@@ -140,7 +169,7 @@ googleBtn.addEventListener("click", async () => {
         Swal.fire({
             title: "Account Created!",
             text: successMsg,
-            icon: "success",
+            icon: iconMsg,
         }).then(() => {
             window.location.href = pageRedirect;
         });

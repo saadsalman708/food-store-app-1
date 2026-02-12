@@ -13,6 +13,7 @@ nav {
 
 nav .logo {
     font-size: 2rem;
+    white-space: nowrap;
 }
 
 nav div {
@@ -59,4 +60,26 @@ footer {
     display: flex;
     justify-content: center;
     padding: 1rem;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+    nav {
+        padding: 1.6rem;
+    }
+
+    nav div {
+        gap: 1rem;
+    }
+
+    main div div {
+        flex-direction: column;
+    }
 }
