@@ -62,7 +62,7 @@ async function getProducts() {
         const obj = {
             vendorUid: product.vendorUid,
             productName: product.productName,
-            productId: product.productId,
+            productId: productsData.id,
             createdAt: product.createdAt,
         };
 
