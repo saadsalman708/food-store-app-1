@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/wrapper.css">
+    <link rel="stylesheet" href="../../css/nav.css">
 </head>
 <body>
     <div class="wrapper">
 
-        <main>
+        <nav>
             <h1>User Dashboard</h1>
             <button id="logoutBtn">Logout</button>
+        </nav>
+
+        <main>
+            <div>
+                <h2>Welcome, User!</h2>
+                <p>This is your dashboard where you can view products added by vendors and add product to your cart.</p>
+            </div>
+            <div id="productsDiv"></div>
         </main>
 
     </div>

@@ -82,7 +82,8 @@ btn.addEventListener("click", async () => {
         email: emailVal,
         password: passwordVal,
         role: roleVal,
-        createdAt: serverTimestamp(),
+        // createdAt: serverTimestamp(),
+                createdAt: Date.now(),
     };
 
     if (roleVal === "vendor") {
@@ -201,7 +202,9 @@ googleBtn.addEventListener("click", async () => {
             fullName: res.user.displayName || "",
             email: res.user.email,
             role: roleVal,
-            createdAt: serverTimestamp(),
+            // createdAt: serverTimestamp(),
+                createdAt: Date.now(),
+
         };
 
         if (roleVal === "vendor") {

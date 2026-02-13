@@ -7,7 +7,7 @@
    } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
   import { getFirestore , doc , setDoc , getDoc , getDocs , addDoc , collection, 
-           serverTimestamp , updateDoc , 
+           serverTimestamp , updateDoc , deleteDoc , 
   } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
@@ -33,5 +33,5 @@
 export { auth , db , googleProvider , 
          onAuthStateChanged , createUserWithEmailAndPassword , signInWithEmailAndPassword , 
          signInWithPopup , signOut ,  
-         doc , setDoc , getDoc , getDocs , addDoc , collection , serverTimestamp , updateDoc , 
+         doc , setDoc , getDoc , getDocs , addDoc , collection , serverTimestamp , updateDoc , deleteDoc ,
 };

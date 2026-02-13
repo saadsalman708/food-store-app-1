@@ -1,5 +1,5 @@
 import {
-    auth, db, onAuthStateChanged, signOut,
+    auth, db, signOut,
     getDoc, doc, updateDoc,
 } from "../../firebase/config.js";
 

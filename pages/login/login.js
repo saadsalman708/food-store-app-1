@@ -104,7 +104,8 @@ googleBtn.addEventListener("click", async () => {
                 fullName: auth.currentUser.displayName || "",
                 email: auth.currentUser.email || "",
                 role: "user",
-                createdAt: serverTimestamp(),
+                // createdAt: serverTimestamp(),
+                createdAt: Date.now(),
             });
         }
 
