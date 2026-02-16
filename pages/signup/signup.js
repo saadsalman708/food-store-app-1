@@ -34,7 +34,7 @@ onAuthStateChanged( auth , user => {
             window.location.replace("../../index.html");
         }
     }
-})
+});
 
 
 
@@ -204,7 +204,6 @@ googleBtn.addEventListener("click", async () => {
             role: roleVal,
             createdAt: serverTimestamp(),
             // createdAt: Date.now(),
-
         };
 
         if (roleVal === "vendor") {

@@ -1,65 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem 4rem;
-    font-size: 1rem;
-    box-shadow: 1px 1px black;
-}
-
-nav .logo {
-    font-size: 2rem;
-    white-space: nowrap;
-}
-
-nav div {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
-
-nav a {
-    font-size: 1.2rem;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
     min-height: 100vh;
-    min-height: 100dvh;
+    transition: background-image 1s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
-main div {
+.wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+nav, main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+nav {
     display: flex;
-    text-align: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
-    gap: 1rem;
+    padding: 1.5rem 10%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+nav .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: normal !important;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-card {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    padding: 3rem;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
 }
 
 main h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #fff;
 }
 
-main div div {
+.btn-group {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
-main div a {
-    font-size: 1.5rem;
+.btn {
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+}
+
+.btn-primary {
+    background: #fff;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-3px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: #fff;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
 }
 
 footer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgb(255, 255, 255);
+    background: rgba(0,0,0,0.3);
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.highlight {
+    color: #ffda79;
+}
+
+.hero-card p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.hero-footer {
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+footer div {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.4;
+    font-weight: 700;
 }
 
 
@@ -70,20 +189,4 @@ footer {
 
 
 
-@media (max-width: 600px) {
-    nav {
-        padding: 1.6rem;
-    }
-
-    nav div {
-        gap: 1rem;
-    }
-
-    main h1 {
-        font-size: 3rem;
-    }
-
-    main div div {
-        flex-direction: column;
-    }
-}
+/* https://www.google.com/search?q=food+store+UI&oq=food+store+UI&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRiPAjIHCAIQIRiPAjIHCAMQIRiPAtIBCDUzODJqMGoxqAIAsAIA&sourceid=chrome&ie=UTF-8&sei=rK2Qad7rB_Klvr0Pis3NiQk https://www.google.com/search?sca_esv=d7358c9ad4b11281&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3vxYI1tojT_24H7Q4iMwclSqIfnTP5J_a1_YHnhrZjiiTJD_2pug00kYgkdnJCgVeWKMtN3ZYjU-fsD1M3d2Dmx5u48V5sGy6qK2CDGNRJSr_g3Ly8SEZUYaAfN5KlOZfCQHCeGUbjQAGtFkwtOWlsXfajxZ&q=food+store+UI&sa=X&ved=2ahUKEwjqzanRwNmSAxX6Q0EAHQVSIUIQtKgLegQIFxAB https://www.figma.com/community/file/1339974710102308445/food-shop-dashboard https://www.google.com/imgres?q=food%20store%20UI&imgurl=https%3A%2F%2Flookaside.instagram.com%2Fseo%2Fgoogle_widget%2Fcrawler%2F%3Fmedia_id%3D3748981498666119210&imgrefurl=https%3A%2F%2Fwww.instagram.com%2Fp%2FDQHDtEMAZmr%2F&docid=3xLwD0QNEQx7HM&tbnid=z3xSJU7Pf9mtTM&vet=12ahUKEwi9teWBvtmSAxUydvUHHW3MN64QnPAOegUIgAEQAQ..i&w=1440&h=1800&hcb=2&ved=2ahUKEwi9teWBvtmSAxUydvUHHW3MN64QnPAOegUIgAEQAQ https://www.google.com/imgres?q=food%20store%20UI&imgurl=https%3A%2F%2Fimages.ui8.net%2Fuploads%2Fdetail-14_1739988435172.png&imgrefurl=https%3A%2F%2Fui8.net%2Fhaikapixel-studio%2Fproducts%2Ffarmora---mobile-grocery-store-app-ui-kit%3Fbrowse%3Dauthor&docid=4WiDiKXQV1GRYM&tbnid=eEYPkBe-nK39xM&vet=12ahUKEwi9teWBvtmSAxUydvUHHW3MN64QnPAOegQIXhAB..i&w=1800&h=1360&hcb=2&ved=2ahUKEwi9teWBvtmSAxUydvUHHW3MN64QnPAOegQIXhAB https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd4WiEmKvtt9pvwSyWnpvfsiDIgbG8CVa-4Q&s https://www.figma.com/community/file/1313584527858783199/food-shop-ui-design-material-kit-template */

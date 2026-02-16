@@ -1,18 +1,18 @@
-import { auth, collection, db, getDocs, signOut } from "../../firebase/config.js";
+import {
+    auth, db,
+    getDocs, collection,
+    signOut,
+} from "../../firebase/config.js";
+
 import { kick } from "../../func/kick.js";
 
 
 
 
 
+const cartCount = document.querySelector("#cartCount");
 const productsDiv = document.querySelector("#productsDiv");
 const logoutBtn = document.querySelector("#logoutBtn");
-
-
-
-
-
-await kick({ role: "user" });
 
 
 
@@ -45,10 +45,16 @@ logoutBtn.addEventListener("click", () => {
 
 
 
+await kick({ role: "user" });
+
+
+
+
+
 async function getProducts() {
 
-    const productsSnap = await getDocs(collection( db , "products" ));
-    
+    const productsSnap = await getDocs(collection(db, "products"));
+
     if (productsSnap.empty) {
         productsDiv.innerHTML = `<p>No products available.</p>`;
         return;
@@ -60,8 +66,11 @@ async function getProducts() {
         const product = productsData.data();
 
         const obj = {
+            imageUrl: product.imageUrl,
             vendorUid: product.vendorUid,
-            productName: product.productName,
+            shopName: product.shopName,
+            price: product.price,
+            name: product.name,
             productId: productsData.id,
             createdAt: product.createdAt,
         };
@@ -77,6 +86,7 @@ async function getProducts() {
 
 
 async function loadProducts() {
+
     productsDiv.innerHTML = `<p>Loading products...</p>`;
 
     const productsList = await getProducts();
@@ -89,19 +99,63 @@ async function loadProducts() {
     productsDiv.innerHTML = ``;
     const ul = document.createElement("ul");
 
-    productsList.forEach((product)=>{
-        
+    productsList.forEach((product) => {
+
         const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.textContent = "Add to Cart";
+        btn.onclick = () => addToCart(product.productId);
         li.innerHTML = `
-            <div>Product Name: ${product.productName}</div>
+            <div>${product.imageUrl}</div>
+            <div>Product Name: ${product.name}</div>
+            <div>Price: ${product.price}</div>
+            <div>Shop Name: ${product.shopName}</div>
             <div>Vendor ID: ${product.vendorUid}</div> 
             <div>Product ID: ${product.productId}</div>
             <div>Created At: ${product.createdAt}</div>
-            <button onclick="addToCart('${product.productId}')">Add to Cart</button>
         `;
+        li.appendChild(btn);
         ul.appendChild(li);
     });
     productsDiv.appendChild(ul);
+}
+
+
+
+
+
+const cartList = JSON.parse(localStorage.getItem("cartList")) || [];
+function updateCartCount() {
+    const total = cartList.reduce(( sum , item )=> {
+        return sum += item.qty
+    } , 0);
+    cartCount.innerHTML = total || "" ;
+    if (total > 0) {
+        cartCount.classList.remove("d-none");
+    } else {
+        cartCount.classList.add("d-none");
+    }
+}
+
+
+
+updateCartCount();
+
+
+
+function addToCart(id) {
+    
+    const itemExist = cartList.find(item => item.id === id);
+    
+    if (itemExist) {
+        itemExist.qty += 1;
+    } else {
+        cartList.push({ id: id , qty: 1 });
+    }
+    
+    localStorage.setItem("cartList", JSON.stringify(cartList));
+    
+    updateCartCount();    
 }
 
 

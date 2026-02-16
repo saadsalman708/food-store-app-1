@@ -61,10 +61,13 @@ async function getVendors() {
 
     snap.forEach(profileData => {
         const profile = profileData.data();
+        console.log(profileData);
+        
 
         if ("vendor" === profile.role) {
             const obj = {
-                uid: profileData.uid,
+                uid: profileData.id,
+                shopName: profile.shopName,
                 fullName: profile.fullName,
                 email: profile.email,
                 password: profile.password || "🤫",
@@ -96,9 +99,10 @@ async function loadVendors() {
         const btn = document.createElement("button");
         btn.textContent = vendor.isVerified ? "Unverify" : "Verify";
         // btn.setAttribute('onclick' , "verifyVendor()");
-        btn.onclick = ()=> verifyVendor(vendor.uid , vendor.isVerified);
+        btn.onclick = ()=> verifyVendor(vendor.id , vendor.isVerified);
         li.innerHTML = `
-            <div>uid: ${vendor.uid}</div>
+            <div>Uid: ${vendor.uid}</div>
+            <div>Shop Name: ${vendor.shopName}</div>
             <div>Full Name: ${vendor.fullName}</div>
             <div>Email: ${vendor.email}</div>
             <div>Password: ${vendor.password}</div>

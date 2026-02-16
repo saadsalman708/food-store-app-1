@@ -5,18 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="../../css/login-signup.css">
 </head>
 
 <body>
     <div class="wrapper">
 
         <main>
-            <div>
-                <h1>Sign Up</h1>
-                <input id="fullName" type="text" placeholder="Full Name">
-                <input id="email" type="email" placeholder="Email">
-                <input id="password" type="password" placeholder="Password">
+            <div class="form">
                 <div>
+                    <div id="arrow">
+                        <a href="../../index.html"><img src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/back-arrow-icon.png" alt="Go Back"></a>
+                        <h1>Sign Up</h1>
+                    </div>
+                <div class="inputs">
+                    <input id="fullName" type="text" placeholder="Full Name">
+                    <input id="email" type="email" placeholder="Email">
+                    <input id="password" type="password" placeholder="Password">
+                </div>
+                <div class="radios">
                     <div>
                         <input type="radio" name="role" id="user" class="role" value="user">
                         <label for="user">Sign up as a User</label>
@@ -26,10 +33,11 @@
                         <label for="vendor">Sign up as a Vendor</label>
                     </div>
                 </div>
-                <div>
+                <div class="btns">
                     <button id="btn">Sign Up</button>
-                    <button id="googleBtn">Sign Up with Google</button>
+                    <button id="googleBtn"><img id="google-icon" src="https://cdn-icons-png.flaticon.com/128/281/281764.png"> Sign Up with Google</button>
                 </div>
+            </div>
             </div>
         </main>
 

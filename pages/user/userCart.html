@@ -12,19 +12,22 @@
     <div class="wrapper">
 
         <nav>
-            <h1>User Dashboard</h1>
+            <h1>User Cart</h1>
             <div>
-                <a href="./userCart.html" id="cartBtn">Cart <span id="cartCount" class="d-none"></span></a>
+                <a href="./user.html">Dashboard</a>
             </div>
             <button id="logoutBtn">Logout</button>
         </nav>
 
         <main>
             <div>
-                <h2>Welcome, User!</h2>
-                <p>This is your dashboard where you can view products added by vendors and add product to your cart.</p>
+                <h2>Your Cart</h2>
+                <p>Place Order here! And hope vendor does not scams you.</p>
             </div>
-            <div id="productsDiv"></div>
+            <div>
+                <button id="orderBtn">Place Order</button>
+                <div id="cartDiv"></div>
+            </div>
         </main>
 
     </div>
@@ -32,6 +35,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script type="module" src="./user.js"></script>
+<script type="module" src="./userCart.js"></script>
 
 </html>
